@@ -30,11 +30,13 @@ CDI$valor <- as.numeric(gsub(",", ".", gsub("\\.", "", CDI$valor)))
 tabela_regressiva <- function(dateInit, dateFinal) {
   dias <- as.numeric(difftime(dateFinal, dateInit, units = 'days'))
   
-  if (dias < 360) {
-    ir <- 0.2
-  } else if (dias < 720 & dias >= 360) {
+  if (dias <= 180) {
+    ir <- 0.225
+  } else if (dias > 180 & dias <= 360) {
+    ir <- 0.20
+  } else if (dias > 360 & dias <= 720) {
     ir <- 0.175
-  } else if (dias >= 720) {
+  } else if (dias > 720) {
     ir <- 0.15
   }
   
@@ -45,11 +47,12 @@ tabela_regressiva <- function(dateInit, dateFinal) {
 IOF <- function(dateInit, dateFinal) {
   dias <- as.numeric(difftime(dateFinal, dateInit, units = 'days'))
   
-  if (dias < 30){
-    return(0.0638)
-  } else {
-    return(0)
-  }
+  iof <- data.frame("Dias" = c(1:30), 
+                    "IOF" = c(0.96, 0.93, 0.90, 0.86, 0.83, 0.80, 0.76, 0.73, 0.70, 0.66,
+                              0.63, 0.60, 0.56, 0.53, 0.50, 0.46, 0.43, 0.40, 0.36, 0.33,
+                              0.30, 0.26, 0.23, 0.20, 0.16, 0.13, 0.10, 0.06, 0.03, 0.00))
+  
+  return(iof$IOF[iof$Dias == dias])
 }
 
 # Investments ------------------------------------------------------------------
