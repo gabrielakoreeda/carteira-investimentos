@@ -56,7 +56,9 @@ IOF <- function(dateInit, dateFinal) {
 }
 
 # Investments ------------------------------------------------------------------
-# CDB
+carteira <- read.csv2("carteira.csv", stringsAsFactors = F)
+
+  # CDB
 CDB <- data.frame('CDB' = c('CDB Pan - AGO/2020', 'CDB Pan - SET/2020'),
                   'Aplicação' = c(4000, 1000), 
                   'Rentabilidade' = c(117.50, 117.50), 
@@ -112,7 +114,6 @@ for (i in 1:nrow(tesouro)) {
   
   tesouro$`Líquido`[i] <- tesouro$Rendimento[i] - tesouro$Imposto[i]
 }
-
 
 
 
